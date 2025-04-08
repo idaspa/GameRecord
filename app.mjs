@@ -2,12 +2,12 @@ import Game from "./Models/gameClass.mjs";
 
 
 function saveGame(game) {
-    const gameTitle = game.title; 
+    const gameTitle = game.title;
     if (!gameTitle) {
         console.error('Game must have a title');
         return;
     }
-    
+
     localStorage.setItem(gameTitle, JSON.stringify(game));
 }
 saveGame();
@@ -15,10 +15,10 @@ saveGame();
 function getAllGames() {
     const games = [];
     for (let i = 0; i < localStorage.length; i++) {
-        const gameTitle = localStorage.key(i); 
-        const gameData = localStorage.getItem(gameTitle); 
+        const gameTitle = localStorage.key(i);
+        const gameData = localStorage.getItem(gameTitle);
         if (gameData) {
-            const gameObj = JSON.parse(gameData); 
+            const gameObj = JSON.parse(gameData);
             const game = new Game(
                 gameObj.title,
                 gameObj.designer,
@@ -32,23 +32,43 @@ function getAllGames() {
                 gameObj.playCount,
                 gameObj.personalRating
             );
-            games.push(game); 
+            games.push(game);
         }
     }
     return games;
 }
 getAllGames();
 
-function JSON_Games(){
-   const gameLibrary = getAllGames();
-   return JSON.stringify(gameLibrary, null, 2);
+function JSON_Games() {
+    const gameLibrary = getAllGames();
+    return JSON.stringify(gameLibrary, null, 2);
 }
 JSON_Games();
 
-function importFromJson(json){
-const gamesRetrival = JSON.parse(json)
-gamesRetrival.forEach(allData => {
-  const game = new Game(allData)  
-saveGame(game)})
+function importFromJson(json) {
+    const gamesRetrival = JSON.parse(json)
+    gamesRetrival.forEach(allData => {
+        const game = new Game(allData)
+        saveGame(game)
+    })
 };
 importFromJson();
+
+
+document.getElementById("importSource").addEventListener("change", e => {
+    const file = e.target.files[0];
+
+    let reader = fileReader();
+    reader.onload = function (event) {
+        const fileContent = event.target.result;
+        console.log(fileContent);
+    };
+
+    reader.onerror = function (event) {
+        console.error("Error with reading file: ", event.target.error);
+    };
+
+
+    reader.readAsText(file);
+});
+
