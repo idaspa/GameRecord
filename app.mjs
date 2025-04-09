@@ -1,47 +1,39 @@
 import Game from "./Models/gameClass.mjs";
 
-
 function saveGame(game) {
     const gameTitle = game.title;
     if (!gameTitle) {
         console.error('Game must have a title');
         return;
     }
-
     localStorage.setItem(gameTitle, JSON.stringify(game));
 }
-
 
 function getAllGames() {
     const games = [];
     for (let i = 0; i < localStorage.length; i++) {
         const gameTitle = localStorage.key(i);
         const gameData = localStorage.getItem(gameTitle);
-        if (gameData) {
-            const gameObj = JSON.parse(gameData);
-            const game = new Game(
-                gameObj.title,
-                gameObj.designer,
-                gameObj.artist,
-                gameObj.publisher,
-                gameObj.year,
-                gameObj.players,
-                gameObj.time,
-                gameObj.difficulty,
-                gameObj.url,
-                gameObj.playCount,
-                gameObj.personalRating
-            );
-            games.push(game);
-        }
+
+        const gameObj = JSON.parse(gameData);
+        const game = new Game(
+            gameObj.title,
+            gameObj.designer,
+            gameObj.artist,
+            gameObj.publisher,
+            gameObj.year,
+            gameObj.players,
+            gameObj.time,
+            gameObj.difficulty,
+            gameObj.url,
+            gameObj.playCount,
+            gameObj.personalRating
+        );
+        games.push(game);
     }
     return games;
 }
 
-function JSON_Games() {
-    const gameLibrary = getAllGames();
-    return JSON.stringify(gameLibrary, null, 2);
-}
 
 function importFromJson(json) {
     const gamesRetrival = JSON.parse(json);
@@ -53,8 +45,8 @@ function importFromJson(json) {
     });
 }
 
-document.getElementById("importSource").addEventListener("change", e => {
-    const file = e.target.files[0];
+document.getElementById("importSource").addEventListener("change", event => {
+    const file = event.target.files[0];
     let reader = new FileReader();
 
     reader.onload = function (event) {
@@ -70,8 +62,6 @@ document.getElementById("importSource").addEventListener("change", e => {
     reader.readAsText(file);
 });
 
-
-//5-6 step 
 function visualRecord() {
     const gameList = document.getElementById("gamesList");
     const allgames = getAllGames();
@@ -92,35 +82,48 @@ function visualRecord() {
         </div>
     `).join('');
 
-eventListeners();
+    eventListeners();
 }
 
 function eventListeners() {
     document.querySelectorAll('.playCountInput').forEach(input => {
-        input.addEventListener('input', (e) => {
-            const title = e.target.dataset.title;
+        input.addEventListener('input', (event) => {
+           
+            const title = event.target.dataset.title;
             const game = getAllGames().find(g => g.title === title);
+          
             if (game) {
-                game.playCount = parseInt(e.target.value, 10);
+                game.playCount = parseInt(event.target.value);
                 saveGame(game);
             }
         });
     });
 
     document.querySelectorAll('.ratingSlider').forEach(slider => {
-        slider.addEventListener('input', (e) => {
-            const title = e.target.dataset.title;
+        slider.addEventListener('input', (event) => {
+            const title = event.target.dataset.title;
             const game = getAllGames().find(g => g.title === title);
             if (game) {
-                game.personalRating = parseInt(e.target.value, 10);
+                game.personalRating = parseInt(event.target.value);
                 saveGame(game);
-                e.target.nextElementSibling.textContent = e.target.value;
+                event.target.parentElement.querySelector("span").textContent = event.target.value;
             }
         });
     });
 }
 
-// Sample usage: Populate games list when the page loads
 document.addEventListener("DOMContentLoaded", () => {
     visualRecord();
 });
+
+
+
+document.getElementById("addGame").onclick = function() {
+    let newGameEntry = {
+        title: document.getElementById("newGameTitle").value,
+        
+    };
+};
+
+
+
