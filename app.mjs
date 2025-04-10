@@ -1,16 +1,18 @@
 import Game from "./Models/gameClass.mjs";
 
+let games = [];
+
 function saveGame(game) {
     const gameTitle = game.title;
     if (!gameTitle) {
-        console.error('Game must have a title');
+
         return;
     }
     localStorage.setItem(gameTitle, JSON.stringify(game));
 }
 
 function getAllGames() {
-    const games = [];
+    games = [];
     for (let i = 0; i < localStorage.length; i++) {
         const gameTitle = localStorage.key(i);
         const gameData = localStorage.getItem(gameTitle);
@@ -64,7 +66,7 @@ document.getElementById("importSource").addEventListener("change", event => {
 
 function visualRecord() {
     const gameList = document.getElementById("gamesList");
-    const allgames = getAllGames();
+    const allgames = games;
 
     gameList.innerHTML = allgames.map(game => `
         <div class="gameItem" data-title="${game.title}">
@@ -79,6 +81,7 @@ function visualRecord() {
             <p>URL: <a href="${game.url}" target="_blank">${game.url}</a></p>
             <p>Play Count: <input type="number" class="playCountInput" min="0" value="${game.playCount}" data-title="${game.title}"></p>
             <p>Rating: <input type="range" min="0" max="10" value="${game.personalRating}" class="ratingSlider" data-title="${game.title}"> <span class="ratingValue">${game.personalRating}</span></p>
+            <p><button class="deleteButton">Delete</button></p>
         </div>
     `).join('');
 
@@ -88,10 +91,10 @@ function visualRecord() {
 function eventListeners() {
     document.querySelectorAll('.playCountInput').forEach(input => {
         input.addEventListener('input', (event) => {
-           
+
             const title = event.target.dataset.title;
-            const game = getAllGames().find(g => g.title === title);
-          
+            const game = games.find(g => g.title === title);
+
             if (game) {
                 game.playCount = parseInt(event.target.value);
                 saveGame(game);
@@ -99,10 +102,19 @@ function eventListeners() {
         });
     });
 
+    document.querySelectorAll('.deleteButton').forEach(deleteButton => {
+        deleteButton.addEventListener("click", (event) => {
+            const gameEntryTitle = event.target.parentElement.parentElement.getAttribute("data-title");
+            localStorage.removeItem(gameEntryTitle);
+
+            visualRecord();
+        });
+    });
+
     document.querySelectorAll('.ratingSlider').forEach(slider => {
         slider.addEventListener('input', (event) => {
             const title = event.target.dataset.title;
-            const game = getAllGames().find(g => g.title === title);
+            const game = games.find(g => g.title === title);
             if (game) {
                 game.personalRating = parseInt(event.target.value);
                 saveGame(game);
@@ -113,17 +125,55 @@ function eventListeners() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    getAllGames();
     visualRecord();
 });
 
 
 
-document.getElementById("addGame").onclick = function() {
-    let newGameEntry = {
+document.getElementById("addGame").onclick = function () {
+    let newGame = {
         title: document.getElementById("newGameTitle").value,
-        
+        designer: document.getElementById("designer").value,
+        artist: document.getElementById("artist").value,
+        publisher: document.getElementById("publisher").value,
+        year: document.getElementById("year").value,
+        time: document.getElementById("time"),
+        difficulty: document.getElementById("difficulty").value,
+        url: document.getElementById("url").value,
+        playCount: document.getElementById("playCount").value,
+        personalRating: document.getElementById("personalRating").value
     };
 };
 
+document.getElementById("sortPlayerCount").onclick = function () {
+    console.log(games);
+    sortBy(games, "playCount"); console.log(games);
+    visualRecord();
+};
 
+document.getElementById("sortPersonalRating").onclick = function () {
+    sortBy(games, "personalRating");
+    visualRecord();
+};
+
+document.getElementById("sortPlayer").onclick = function () {
+    sortBy(games, "players");
+    visualRecord();
+};
+
+document.getElementById("sortDifficulty").onclick = function () {
+    sortBy(games, "difficulty");
+    visualRecord();
+};
+
+
+function sortBy(array, propertyName) {
+    array.sort(function (a, b) {
+        if (a[propertyName] < b[propertyName])
+            return -1;
+        else
+            return 1;
+    });
+}
 

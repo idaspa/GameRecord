@@ -4,22 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Games</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.mjs"></script>
+
+
 </head>
 
 <body>
+    <h1><i>Game Library</i></h1>
 
+    <div>
+        <label>Title:</label><input id="newGameTitle" type="text" placeholder="GameTitle" />
+        <label>designer:</label><input id="designer" type="text" placeholder="Designer" />
+        <label>artist:</label><input id="artist" type="text" placeholder="Artist" />
+        <label>publisher:</label><input id="publisher" type="text" placeholder="Publisher" />
+        <label>year:</label><input id="year" type="number" placeholder="Year" />
+        <label>time:</label><input id="time" type="text" placeholder="Time" />
+        <label>difficulty:</label><input id="difficulty" type="text" placeholder="Difficulty" />
+        <label>url:</label><input id="url" type="text" placeholder="url" />
+        <label>playcount:</label><input id="playCount" type="number" placeholder="PlayCount" />
+        <label>personalRating:</label><input id="PersonalRating" type="range" placeholder="PersonalRating" />
 
+        <button id="addGame">Add New Game</button>
+        <button id="sortPlayerCount">Sort By PlayerCount</button>
+        <button id="sortPersonalRating">Sort By PersonalRating</button>
+        <button id="sortPlayer">Sort By Player</button>
+        <button id="sortDifficulty">Sort By Difficulty</button>
+
+    </div>
     <input type="file" id="importSource" accept=".json" />
-    
-    <button id="saveGame">Save Game</button>
-    <button id="loadGames">Load Games</button>
-    
-    
+
+
+
+
     <div id="gamesList"></div>
-  
-    <script type="module" src="app.mjs"></script>
- 
+
+
 
 </body>
 
