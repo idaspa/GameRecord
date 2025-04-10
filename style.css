@@ -1,25 +1,74 @@
+html {
+    background-color: black;
+    color: orange;
+}
+
+h1{
+    text-align: center;
+    
+}
+/*all of them sliders */
 input[type="range"] {
     width: 200px;
     height: 10px;
     border-radius: 5px;
-    background: linear-gradient(to right, #4A90E2, #50E3C2); /* Gradient color */
+    background: linear-gradient(to right, #4A90E2, orange); /* Gradient color */
     outline: none;
 }
-
-input[type="range"]::-webkit-slider-thumb {
-    
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #4A90E2;
-    cursor: pointer;
-}
-
+/*range button for them sliders */
 input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background-color: #4A90E2;
     cursor: pointer;
+}
+/*label inside container class*/
+.container label {
+    display: block;
+}
+/*all them input fields*/
+input{
+width: 100px;
+font-style: italic;
+}
+/*all them buttons*/
+button{ 
+    border-radius: 10px;
+    background-color: orange;
+}
+
+
+/*displaying game items*/
+#gameList {
+    position:realtive;
+    width: fit-content;
+    overflow-x:auto;
+}
+/* everthing in gameItem class*/
+.gameItem{
+    
+   padding: 1%;
+   outline: 1px solid orange;
+   flex: 32%;
+
+}
+/*browse button*/
+input[type="file"]{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+}
+/* everything inside center tag*/
+center{
+    line-height: 3.5;
+}
+.flex-container{
+    position: relative;
+    display: inline;
+    width: fit-content;
+}
+.newGame input{
+    margin-left: 4px;
 }
