@@ -63,7 +63,7 @@ document.getElementById("importSource").addEventListener("change", event => {
 
 function visualRecord() {
     const gameList = document.getElementById("gamesList");
-    const allgames = games;
+    const allgames = games; 
 
     gameList.innerHTML = allgames.map(game => `
         <div class="gameItem" data-title="${game.title}">
