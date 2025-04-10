@@ -36,7 +36,6 @@ function getAllGames() {
     return games;
 }
 
-
 function importFromJson(json) {
     const gamesRetrival = JSON.parse(json);
     gamesRetrival.forEach(gameData => {
@@ -50,13 +49,11 @@ function importFromJson(json) {
 document.getElementById("importSource").addEventListener("change", event => {
     const file = event.target.files[0];
     let reader = new FileReader();
-
     reader.onload = function (event) {
         const fileContent = event.target.result;
         importFromJson(fileContent);
         visualRecord();
     };
-
     reader.onerror = function (event) {
         console.error("Error with reading file: ", event.target.error);
     };
@@ -123,15 +120,13 @@ function eventListeners() {
         });
     });
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     getAllGames();
     visualRecord();
 });
 
 
-
-document.getElementById("addGame").onclick = function () {
+function addGameButtonClick() {
     let newGame = {
         title: document.getElementById("newGameTitle").value,
         designer: document.getElementById("designer").value,
@@ -144,29 +139,39 @@ document.getElementById("addGame").onclick = function () {
         playCount: document.getElementById("playCount").value,
         personalRating: document.getElementById("personalRating").value
     };
-};
+    saveGame(newGame);
+    getAllGames();
+    visualRecord();
+}
+document.getElementById("addGame").onclick = addGameButtonClick;
 
-document.getElementById("sortPlayerCount").onclick = function () {
+
+function sortButtonClickforPc() {
     console.log(games);
     sortBy(games, "playCount"); console.log(games);
     visualRecord();
-};
+}
+document.getElementById("sortPlayerCount").onclick = sortButtonClickforPc;
 
-document.getElementById("sortPersonalRating").onclick = function () {
+function sortButtonClickForPR() {
     sortBy(games, "personalRating");
     visualRecord();
-};
+}
+document.getElementById("sortPersonalRating").onclick = sortButtonClickForPR;
 
-document.getElementById("sortPlayer").onclick = function () {
+
+function sortButtonClickPlayer() {
     sortBy(games, "players");
     visualRecord();
-};
+}
+document.getElementById("sortPlayer").onclick = sortButtonClickPlayer;
 
-document.getElementById("sortDifficulty").onclick = function () {
+
+function sortButtonForDiff() {
     sortBy(games, "difficulty");
     visualRecord();
-};
-
+}
+document.getElementById("sortDifficulty").onclick = sortButtonForDiff;
 
 function sortBy(array, propertyName) {
     array.sort(function (a, b) {
