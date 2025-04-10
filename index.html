@@ -1,48 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="app.mjs"></script>
-
-
 </head>
 
 <body>
     <h1><i>Game Library</i></h1>
-
-    <div>
-        <label>Title:</label><input id="newGameTitle" type="text" placeholder="GameTitle" />
-        <label>designer:</label><input id="designer" type="text" placeholder="Designer" />
-        <label>artist:</label><input id="artist" type="text" placeholder="Artist" />
-        <label>publisher:</label><input id="publisher" type="text" placeholder="Publisher" />
-        <label>year:</label><input id="year" type="number" placeholder="Year" />
-        <label>time:</label><input id="time" type="text" placeholder="Time" />
-        <label>difficulty:</label><input id="difficulty" type="text" placeholder="Difficulty" />
-        <label>url:</label><input id="url" type="text" placeholder="url" />
-        <label>playcount:</label><input id="playCount" type="number" placeholder="PlayCount" />
-        <label>personalRating:</label><input id="PersonalRating" type="range" placeholder="PersonalRating" />
-
-        <button id="addGame">Add New Game</button>
-        <button id="sortPlayerCount">Sort By PlayerCount</button>
-        <button id="sortPersonalRating">Sort By PersonalRating</button>
-        <button id="sortPlayer">Sort By Player</button>
-        <button id="sortDifficulty">Sort By Difficulty</button>
-
-    </div>
+    <center>
     <input type="file" id="importSource" accept=".json" />
-
-
-
-
-    <div id="gamesList"></div>
-
-
-
+    <button id="addGame"class="btn btn-outline-warning" >Add New Game</button>
+    <button id="sortPlayerCount"class="btn btn-outline-warning">Sort By PlayerCount</button>
+    <button id="sortPersonalRating"class="btn btn-outline-warning">Sort By PersonalRating</button>
+    <button id="sortPlayer"class="btn btn-outline-warning">Sort By Player</button>
+    <button id="sortDifficulty"class="btn btn-outline-warning">Sort By Difficulty</button>
+    <br>
+    <br>
+    <label>Title:</label><input class="btn btn-outline-warning" id="newGameTitle"type="text" placeholder="GameTitle" />
+    <label>Designer:</label><input class="btn btn-outline-warning" id="designer" type="text" placeholder="Designer" />
+    <label>Artist:</label><input class="btn btn-outline-warning" id="artist" type="text" placeholder="Artist" />
+    <label>Publisher:</label><input class="btn btn-outline-warning" id="publisher" type="text" placeholder="Publisher" />
+    <label>Year:</label><input class="btn btn-outline-warning" id="year" type="number" placeholder="Year" />
+    <label>Time:</label><input class="btn btn-outline-warning" id="time" type="text" placeholder="Time" />
+    <label>Difficulty:</label><input class="btn btn-outline-warning" id="difficulty" type="text" placeholder="Difficulty" />
+    <label>Url:</label><input class="btn btn-outline-warning" id="url" type="text" placeholder="url" />
+    <label>Playcount:</label><input class="btn btn-outline-warning" id="playCount" type="number" placeholder="PlayCount" />
+   <br>
+   <br>
+    <label>PersonalRating:</label><input class="btn btn-outline-warning" id="personalRating" type="range" placeholder="PersonalRating" />
+</center>
+<br>
+    <div class="flex-container">
+        <div id="gamesList" class="container"></div>
+        <div class="container newGame">
+         
+        </div>
+    </div>
 </body>
 
 </html>

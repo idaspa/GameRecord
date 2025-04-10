@@ -68,17 +68,16 @@ function visualRecord() {
     gameList.innerHTML = allgames.map(game => `
         <div class="gameItem" data-title="${game.title}">
             <h2>${game.title}</h2>
-            <p>Year: ${game.year}</p>
-            <p>Players: ${game.players}</p>
-            <p>Time: ${game.time}</p>
-            <p>Difficulty: ${game.difficulty}</p>
-            <p>Designer: ${game.designer}</p>
-            <p>Artist: ${game.artist}</p>
-            <p>Publisher: ${game.publisher}</p>
+            <p>Year: ${game.year} &nbsp; &nbsp; &nbsp; Players: ${game.players} &nbsp; &nbsp; &nbsp; Time: ${game.time} &nbsp; &nbsp; &nbsp; Difficulty: ${game.difficulty}</p>
+           <p>Designer: ${game.designer} Artist: ${game.artist} Publisher: ${game.publisher} </p>
             <p>URL: <a href="${game.url}" target="_blank">${game.url}</a></p>
-            <p>Play Count: <input type="number" class="playCountInput" min="0" value="${game.playCount}" data-title="${game.title}"></p>
-            <p>Rating: <input type="range" min="0" max="10" value="${game.personalRating}" class="ratingSlider" data-title="${game.title}"> <span class="ratingValue">${game.personalRating}</span></p>
-            <p><button class="deleteButton">Delete</button></p>
+           <br>
+            <p>Play Count: <input type="number" class="playCountInput btn btn-outline-warning form control" min="0" value="${game.playCount}"  data-title="${game.title}"></p>
+            <br>
+           <p>Rating: <input type="range" min="0" max="10" value="${game.personalRating}" class="ratingSlider btn btn-outline-warning form-control" data-title="${game.title}"> <span class="ratingValue">${game.personalRating}</span></p>
+            <br>
+            <br>
+            <p><button class="deleteButton btn btn-outline-warning">Delete</button></p>
         </div>
     `).join('');
 
@@ -103,7 +102,7 @@ function eventListeners() {
         deleteButton.addEventListener("click", (event) => {
             const gameEntryTitle = event.target.parentElement.parentElement.getAttribute("data-title");
             localStorage.removeItem(gameEntryTitle);
-
+            getAllGames()
             visualRecord();
         });
     });
@@ -125,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     visualRecord();
 });
 
-
 function addGameButtonClick() {
     let newGame = {
         title: document.getElementById("newGameTitle").value,
@@ -133,7 +131,7 @@ function addGameButtonClick() {
         artist: document.getElementById("artist").value,
         publisher: document.getElementById("publisher").value,
         year: document.getElementById("year").value,
-        time: document.getElementById("time"),
+        time: document.getElementById("time").value,
         difficulty: document.getElementById("difficulty").value,
         url: document.getElementById("url").value,
         playCount: document.getElementById("playCount").value,
@@ -144,7 +142,6 @@ function addGameButtonClick() {
     visualRecord();
 }
 document.getElementById("addGame").onclick = addGameButtonClick;
-
 
 function sortButtonClickforPc() {
     console.log(games);
@@ -159,13 +156,11 @@ function sortButtonClickForPR() {
 }
 document.getElementById("sortPersonalRating").onclick = sortButtonClickForPR;
 
-
 function sortButtonClickPlayer() {
     sortBy(games, "players");
     visualRecord();
 }
 document.getElementById("sortPlayer").onclick = sortButtonClickPlayer;
-
 
 function sortButtonForDiff() {
     sortBy(games, "difficulty");
